@@ -1,0 +1,425 @@
+/* ==========================================================================
+   1. CSS Custom Properties & Reset
+   ========================================================================== */
+:root {
+  --color-primary: #0f172a;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-text: #334155;
+  --color-text-light: #64748b;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8fafc;
+  --color-border: #e2e8f0;
+
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --max-width: 1200px;
+  --transition-speed: 0.25s;
+  --border-radius: 8px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
+}
+
+body {
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Accessibility: Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-accent);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 1000;
+  text-decoration: none;
+  transition: top var(--transition-speed);
+}
+.skip-link:focus {
+  top: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Global Container */
+.container {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Typography Helpers */
+h1, h2, h3 {
+  color: var(--color-primary);
+  line-height: 1.25;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover, a:focus {
+  text-decoration: underline;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--color-accent-hover);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+.btn-secondary:hover {
+  background-color: #1e293b;
+  text-decoration: none;
+}
+
+.btn-outline {
+  border-color: var(--color-border);
+  color: var(--color-primary);
+  background-color: transparent;
+}
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   2. Header & Navigation
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.brand-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.site-nav .nav-list {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--color-text);
+  font-weight: 500;
+}
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* ==========================================================================
+   3. Hero Section
+   ========================================================================== */
+.hero-section {
+  padding: 80px 0;
+  background-color: var(--color-bg-alt);
+}
+
+.hero-container {
+  max-width: 800px;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: #dbeafe;
+  color: var(--color-accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.hero-section h1 {
+  font-size: 2.75rem;
+  margin-bottom: 20px;
+}
+
+.hero-subheading {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+  margin-bottom: 32px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   4. Sections Layout & Component Styles
+   ========================================================================== */
+.about-section, .services-section, .faq-section, .cta-section {
+  padding: 80px 0;
+}
+
+.about-section {
+  background-color: var(--color-bg);
+}
+
+.about-container {
+  max-width: 800px;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.about-text p {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+.services-section {
+  background-color: var(--color-bg-alt);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px auto;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.service-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 32px;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 1.35rem;
+  margin-bottom: 12px;
+}
+
+.card-title a {
+  color: var(--color-primary);
+}
+
+.card-text {
+  color: var(--color-text-light);
+  margin-bottom: 20px;
+}
+
+.card-link {
+  font-weight: 600;
+}
+
+/* FAQ Section */
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px 0;
+}
+
+.faq-question {
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-answer {
+  padding-top: 12px;
+  color: var(--color-text-light);
+}
+
+/* CTA Section */
+.cta-section {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  text-align: center;
+}
+
+.cta-section h2 {
+  color: #ffffff;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.cta-section p {
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.cta-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cta-form input[type="email"] {
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  flex-grow: 1;
+  font-size: 1rem;
+}
+
+/* Footer */
+.site-footer {
+  background-color: #030712;
+  color: #9ca3af;
+  padding: 48px 0;
+  font-size: 0.9rem;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links a {
+  color: #d1d5db;
+}
+
+.footer-bottom {
+  width: 100%;
+  border-top: 1px solid #1f2937;
+  padding-top: 24px;
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   5. Media Queries
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .nav-toggle {
+    display: block;
+  }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    padding: 24px;
+  }
+
+  .site-nav.is-open {
+    display: block;
+  }
+
+  .site-nav .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cta-form {
+    flex-direction: column;
+  }
+}
