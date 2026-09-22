@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      functionality_storage: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 1000
+    });
+  </script>
+  <link rel="stylesheet" href="CSS-1-improved.css">
+  <script defer src="Javascript-Logic-improved-v2.js"></script>
   <title>GEO &amp; AEO Services | Generative Engine &amp; Answer Engine Optimisation</title>
   <meta name="description" content="Specialised GEO and AEO services. Optimise your content and brand entity for AI search engines like Perplexity, ChatGPT, and Google AI Overviews to capture conversational answer placements.">
   <meta name="robots" content="index, follow">
@@ -311,6 +328,9 @@
       <div class="footer-brand">
         <span class="logo-text">Search<strong>Mastery</strong></span>
         <p>Organic, Generative, and Answer Engine Optimisation for modern digital brands.</p>
+        <button type="button" id="consent-settings-link" class="consent-settings-link" aria-haspopup="dialog">
+          Cookie Settings
+        </button>
       </div>
       <div class="footer-links">
         <p class="footer-heading">Services</p>
@@ -328,5 +348,9 @@
   </footer>
 
   <script src="script.js" defer></script>
+  <!-- Consent banner -->
+  <section id="consent-banner" class="consent-banner" hidden role="dialog" aria-modal="false" aria-labelledby="consent-banner-title" aria-describedby="consent-banner-description"><div class="consent-banner__content"><button id="consent-banner-close" class="consent-close" type="button" aria-label="Close cookie consent banner without accepting optional cookies" title="Close"><span aria-hidden="true">&times;</span></button><h2 id="consent-banner-title">Privacy and cookie choices</h2><p id="consent-banner-description" class="consent-banner__text">We use essential technologies that are necessary for this website to work. With your permission, we also use analytics technologies to understand website usage and advertising technologies to measure and personalize advertising. Optional technologies are not activated unless you allow them. You can accept all, reject all, or manage your choices. You can change or withdraw your choices at any time through Cookie Settings. See our <a href="/privacy-policy">Privacy Policy</a> and <a href="/cookie-policy">Cookie Policy</a>.</p><div class="consent-banner__actions" aria-label="Consent choices"><button id="consent-reject-all" class="consent-btn" type="button">Reject All</button><button id="consent-manage" class="consent-btn" type="button">Manage Preferences</button><button id="consent-accept-all" class="consent-btn consent-btn" type="button">Accept All</button></div></div></section>
+  <!-- Consent preference center -->
+  <section id="consent-modal" class="consent-modal" hidden role="dialog" aria-modal="true" aria-labelledby="consent-modal-title" aria-describedby="consent-modal-description"><div id="consent-modal-content" class="consent-modal__content" tabindex="-1"><button id="consent-modal-close" class="consent-close" type="button" aria-label="Close cookie settings without saving changes" title="Close"><span aria-hidden="true">&times;</span></button><h2 id="consent-modal-title">Manage your privacy choices</h2><p id="consent-modal-description" class="consent-modal__text">Choose which optional technologies you allow. Essential technologies are always active because they are necessary for the website to provide the service you requested. Your choices are stored so we can remember them. You can return to this panel at any time to change or withdraw consent.</p><div class="consent-category"><div class="consent-category__header"><span class="consent-category__title">Essential</span><span class="consent-toggle--locked">Always on</span></div><p>Required for core website operation, security, and features you explicitly request. These technologies do not require optional analytics or advertising consent.</p></div><div class="consent-category"><div class="consent-category__header"><label class="consent-category__title" for="toggle-analytics">Analytics</label><span class="consent-toggle-wrap"><input type="checkbox" id="toggle-analytics" class="consent-toggle" value="analytics" aria-describedby="analytics-description"><span aria-hidden="true">Allow</span></span></div><p id="analytics-description">Helps us understand how visitors use the website so we can measure performance and improve it. This may use Google Analytics and related measurement technologies.</p></div><div class="consent-category"><div class="consent-category__header"><label class="consent-category__title" for="toggle-advertising">Advertising</label><span class="consent-toggle-wrap"><input type="checkbox" id="toggle-advertising" class="consent-toggle" value="advertising" aria-describedby="advertising-description"><span aria-hidden="true">Allow</span></span></div><p id="advertising-description">Allows advertising, conversion measurement, remarketing, and related technologies where applicable.</p></div><div class="consent-modal__actions"><button id="consent-save-preferences" class="consent-btn consent-btn" type="button">Save Preferences</button><button id="consent-modal-reject" class="consent-btn" type="button">Reject All</button></div></div></section>
 </body>
 </html>
