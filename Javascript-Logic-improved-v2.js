@@ -1,23 +1,49 @@
 /*
  * Consent Manager — GDPR/ePrivacy-oriented custom implementation
+ * Features dynamic prefix-matching for comprehensive cookie purging.
  */
 
 'use strict';
 
-const CONSENT_KEY = 'site_consent_v1';
-const CONSENT_VERSION = '1.0';
+const CONSENT_KEY = 'site_consent_v2';
+const CONSENT_VERSION = '2.0';
 const RECONSENT_DAYS = 180;
 
 const NON_ESSENTIAL_STORAGE = {
   analytics: {
-    local: [],
-    session: [],
-    cookies: ['_ga', '_gid', '_gat', '_ga_']
+    local: ['_hj', 'ajs_', 'mixpanel'],
+    session: ['_hj'],
+    cookies: [
+      '_ga',          // Universal Analytics / Standard Google Analytics
+      '_gid',         // Google Analytics User ID
+      '_gat',         // Google Analytics Throttle
+      '_ga_',         // GA4 Measurement IDs (e.g. _ga_ZSV6W8EJVN)
+      '_hj',          // Hotjar Tracking Cookies (_hjid, _hjSessionUser_)
+      '_cl',          // Microsoft Clarity Cookies (_clck, _clsk)
+      'ajs_',         // Segment Analytics
+      'mp_',          // Mixpanel
+      '_pk_',         // Matomo / Piwik Analytics
+      'pk_'           // Matomo / Piwik Analytics
+    ]
   },
   advertising: {
-    local: [],
+    local: ['_fbp', '_ttp'],
     session: [],
-    cookies: ['_gcl_au', '_gac_']
+    cookies: [
+      '_gcl_',        // Google Conversion Linker (_gcl_au, _gcl_aw, _gcl_dc, _gcl_gs)
+      '_gac_',        // Google Ads / Analytics Integrated
+      '_fbp',         // Meta / Facebook Pixel Browser ID
+      '_fbc',         // Meta / Facebook Pixel Click ID
+      '_ttp',         // TikTok Pixel
+      'tt_',          // TikTok Advanced Matching
+      '_li_',         // LinkedIn Insight Tag (_li_ss)
+      'bscookie',     // LinkedIn Browser Identifier
+      'lidc',         // LinkedIn Data Center Routing
+      '_uetsid',      // Microsoft / Bing Ads Session
+      '_uetvid',      // Microsoft / Bing Ads Visitor
+      'twq',          // Twitter / X Pixel
+      '_twq'          // Twitter / X Pixel
+    ]
   }
 };
 
@@ -126,6 +152,20 @@ function publishConsentState(record, eventName = 'consent_state_updated', source
   window.dataLayer.push(payload);
 }
 
+/**
+ * Parses all active browser cookies into an array of names
+ */
+function getAllCookieNames() {
+  if (!document.cookie) return [];
+  return document.cookie
+    .split(';')
+    .map(c => c.trim().split('=')[0])
+    .filter(Boolean);
+}
+
+/**
+ * Deletes a single cookie by targeting multiple path and domain variations
+ */
 function deleteCookieByName(name) {
   const hostname = location.hostname;
   const domainVariants = ['', hostname, '.' + hostname];
@@ -140,18 +180,32 @@ function deleteCookieByName(name) {
   }
 }
 
-function clearCookieList(cookieNames) {
-  for (const name of cookieNames) {
-    deleteCookieByName(name);
+/**
+ * Dynamic Cookie Cleaner: Checks active cookies against defined patterns and prefixes
+ */
+function clearCookieList(cookiePatterns) {
+  const activeCookies = getAllCookieNames();
+
+  for (const pattern of cookiePatterns) {
+    for (const cookieName of activeCookies) {
+      if (cookieName === pattern || cookieName.startsWith(pattern)) {
+        deleteCookieByName(cookieName);
+      }
+    }
   }
 }
 
 function clearStorageList(storage, keys) {
-  for (const key of keys) {
-    try {
-      storage.removeItem(key);
-    } catch {}
-  }
+  try {
+    const activeKeys = Object.keys(storage);
+    for (const pattern of keys) {
+      for (const key of activeKeys) {
+        if (key === pattern || key.startsWith(pattern)) {
+          storage.removeItem(key);
+        }
+      }
+    }
+  } catch {}
 }
 
 function clearCategoryClientStorage(category) {
