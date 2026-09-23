@@ -122,11 +122,12 @@ function applyGoogleConsent(analytics, advertising) {
     ad_storage: advertising ? 'granted' : 'denied',
     ad_user_data: advertising ? 'granted' : 'denied',
     ad_personalization: advertising ? 'granted' : 'denied',
-    functionality_storage: 'denied',
-    personalization_storage: 'denied',
+    functionality_storage: analytics ? 'granted' : 'denied',
+    personalization_storage: advertising ? 'granted' : 'denied',
     security_storage: 'granted'
   });
 }
+
 
 function publishConsentState(record, eventName = 'consent_state_updated', source = null) {
   ensureDataLayer();
