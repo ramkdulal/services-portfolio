@@ -151,6 +151,9 @@ function publishConsentState(record, eventName = 'consent_state_updated', source
   }
 
   window.dataLayer.push(payload);
+  window.dispatchEvent(new CustomEvent('site-consent-updated', {
+    detail: window.siteConsentState
+  }));
 }
 
 /**
@@ -476,17 +479,19 @@ function bindUI() {
 
 function initializeConsent() {
   ensureDataLayer();
-  bindUI();
-
   const stored = getStoredConsent();
+
+  if (hasUsableStoredConsent(stored)) {
+    applyGoogleConsent(stored.analytics, stored.advertising);
+    publishConsentState(stored, 'consent_restored');
+  }
+
+  bindUI();
 
   if (!hasUsableStoredConsent(stored)) {
     showBanner();
     return;
   }
-
-  applyGoogleConsent(stored.analytics, stored.advertising);
-  publishConsentState(stored, 'consent_restored');
 
   hideBanner();
   hideModal();
@@ -533,8 +538,4 @@ window.siteConsent = {
   }
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeConsent);
-} else {
-  initializeConsent();
-}
+initializeConsent();
